@@ -1,9 +1,10 @@
 TARGET=lab3
-OBJS=main.o lab3.o
+OBJS=main.o lab3.o lab2.o
 CLFAGS=-g -Wall
+LIBS=-lm
 
 $(TARGET):$(OBJS)
-	$(CC) -o $(TARGET) $(OBJS)
+	$(CC) -o $(TARGET) $(OBJS) $(LIBS)
 
 clean:
 	rm -f $(TARGET) $(OBJS)
