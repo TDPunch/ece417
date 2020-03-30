@@ -4,30 +4,48 @@
 #include "lab2.h"
 #include "lab3.h"
 
-// Pass a paramater array predefined in main and the number
-// of joints or homogenous transformation matrices and
-// allocate the required memory for all joint parameters
-void create_prm_array(float **prms, int num_joints)
+// Get the number of joints and create a 2D-array for joint paramters
+float **create_prm_array(int num_joints)
 {
-	prms = malloc(sizeof(float *) * num_joints);
+	float **prms = malloc(sizeof(float *) * num_joints);
 	for (int i = 0; i < num_joints; i++) {
-		prms[i] = malloc(sizeof(float *) * 4);
+		prms[i] = malloc(sizeof(float) * 4);
 	}
+	return prms;
 }
 
-// Pass the joint parameters and allocated 4x4 matrix
-// and build the homogeneous transformation matrix 
-void build_matrix(float *prms, float **htm)
+// Allocate memory for a 4x4 homogeneous transformation matrix
+float **create_matrix(void)
 {
+	float **matrix = malloc(sizeof(float *) * 4);
+	for (int i = 0; i < 4; i++) {
+		matrix[i] = malloc(sizeof(float) * 4);
+	}
+	return matrix;
+}
+
+// Prompt the user for num_joints joint angles
+float **get_thetas(float **prms, int num_joints)
+{
+	float **theta = prms;
+	for (int i = 0; i < num_joints; i++) {
+		printf("Enter joint parameter theta%d: ", i + 1);
+		scanf("%f", &theta[i][1]);
+	}
+	return theta;
+}
+
+// Pass the joint parameters 
+float **build_matrix(float **prms, float **return_matrix, int col) {
+	float **htm = return_matrix;
 	// Calculate sine and cosine of theta and alpha first and
 	// get d and a for readability
-	
-	float ct = cosf(prms[1] * PI / 180.0);
-	float st = sinf(prms[1] * PI / 180.0);
-	float ca = cosf(prms[3] * PI / 180.0);
-	float sa = sinf(prms[3] * PI / 180.0);
-	float d = prms[0];
-	float a = prms[2];
+	float ct = cosf(prms[col][1] * PI / 180.0);
+	float st = sinf(prms[col][1] * PI / 180.0);
+	float ca = cosf(prms[col][3] * PI / 180.0);
+	float sa = sinf(prms[col][3] * PI / 180.0);
+	float d = prms[col][0];
+	float a = prms[col][2];
 
 	// Build homogeneous transformation matrix (i-1)T(i) or
 	// i with respect to i-1
@@ -51,44 +69,16 @@ void build_matrix(float *prms, float **htm)
 	printf("\n");
 	print_matrix(htm);
 	printf("\n");
-} 
 
-// Lab 3 only requires input joint angle theta
-void create_theta_arr(float *arr, int num_joints)
-{
-	arr = malloc(sizeof(float) * num_joints);
-}
-
-// Pass a float ** and allocate the required memory for a 
-// 4x4 homogenous transformation matrix
-void create_matrix(float **matrix)
-{
-	matrix = malloc(sizeof(float *) * 4);
-	for (int i = 0; i < 4; i++) {
-		matrix[i] = malloc(sizeof(float *) * 4);
-	}
-}
-
-// Prompt the user for num_joints joint angles
-void get_thetas(float **arr, int num_joints)
-{
-	for (int i = 0; i < num_joints; i++) {
-		printf("Enter joint parameter theta%d: ", i);
-		scanf("%f", &arr[1][i]);
-	}
+	return htm;
 }
 
 void destroy_prm(float **prms, int num_joints)
 {
-	for (int i = 0; i < 4; i++) {
+	for (int i = 0; i < num_joints; i++) {
 		free(prms[i]);
 	}
 	free(prms);
-}
-
-void destroy_thetas(float *arr)
-{
-	free(arr);
 }
 
 void destroy_matrix(float **matrix)

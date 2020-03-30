@@ -4,7 +4,7 @@ CLFAGS=-g -Wall
 LIBS=-lm
 
 $(TARGET):$(OBJS)
-	$(CC) -o $(TARGET) $(OBJS) $(LIBS)
+	$(CC) $(CFLAGS) -o $(TARGET) $(OBJS) $(LIBS)
 
 clean:
 	rm -f $(TARGET) $(OBJS)

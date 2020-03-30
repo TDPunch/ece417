@@ -5,19 +5,15 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include "lab3.h"
 
 // matrix_mult() computes the product of two matrices and allocates
 // memory for the solution
-float **matrix_mult(float A[4][4], float B[4][4])
+float **matrix_mult(float **A, float **B)
 {
 	// Allocate memory for the columns
-	float **C = malloc(sizeof(float *) * 4);
+	float **C = create_matrix();
 	float sum = 0.0;
-
-	// Allocate memory for rows
-	for (int i = 0; i < 4; i++) {
-		C[i] = malloc(sizeof(float *) * 4);
-	} 
 
 	// Multiply the matrices
 	for (int i = 0; i < 4; i++) {
@@ -104,11 +100,6 @@ void print_matrix(float **m)
 		}
 		printf("\n");
 	}
-
-	for (int i = 0; i < 4; i++) {
-		free(m[i]);
-	}
-	free(m);
 }
 
 // This function just prints a 3 coordinate point to verify above subroutine

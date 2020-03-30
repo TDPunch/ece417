@@ -3,15 +3,11 @@
 
 #define PI 3.1415927
 
-void create_prm_array(float **prms, int num_joints);
-//void get_joint_prms(float **prms);
-void create_theta_arr(float *arr, int num_joints);
-void create_matrix(float **matrix);
-void get_thetas(float **arr, int num_joints);
-void build_matrix(float *prms, float **htm);
-//void build_matrix(float arr, float **htm);
+float **create_prm_array(int num_joints);
+float **create_matrix(void);
+float **get_thetas(float **prms, int num_joints);
+float **build_matrix(float **prms, float **return_matrix, int col);
 void destroy_prm(float **prms, int num_joints);
-void destroy_thetas(float *arr);
 void destroy_matrix(float **matrix);
 
 #endif
