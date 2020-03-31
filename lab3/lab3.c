@@ -36,10 +36,12 @@ float **get_thetas(float **prms, int num_joints)
 }
 
 // Pass the joint parameters 
-float **build_matrix(float **prms, float **return_matrix, int col) {
+float **build_matrix(float **prms, float **return_matrix, int col) 
+{
 	float **htm = return_matrix;
 	// Calculate sine and cosine of theta and alpha first and
 	// get d and a for readability
+	if ((col+1) == 4) prms[col][1] += 90.0;
 	float ct = cosf(prms[col][1] * PI / 180.0);
 	float st = sinf(prms[col][1] * PI / 180.0);
 	float ca = cosf(prms[col][3] * PI / 180.0);
