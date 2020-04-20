@@ -10,8 +10,6 @@ int main(int argc, char *argv[])
 	float *angles, *ang_temp;
 	int num_joints = 5;
 
-	printf("%d\n", num_joints);
-
 	// Allocate memory for joint parameters and matrices
 	prms = create_prm_array(num_joints);
 	T1 = create_matrix();
@@ -60,7 +58,10 @@ int main(int argc, char *argv[])
 	destroy_matrix(temp2);
 	destroy_matrix(temp3);
 
-	//print_matrix(sol);
+	// Lab 3
+	printf("\nHTM 5 wrt 0 (0A5):\n");
+	print_matrix(sol);
+	printf("\n");
 
 	// Lab 4 code
 	angles = find_joint_angles123(sol, prms);
@@ -71,8 +72,12 @@ int main(int argc, char *argv[])
 	temp1 = get_3A5(temp1, sol);
 
 	ang_temp = find_joint_angles45(temp1);
-	
-	for(int i = 0; i < 5; i++) printf("\n%d", angles[i]);
+
+	angles[3] = ang_temp[0];
+	angles[4] = ang_temp[1];
+
+	printf("Lab4 Inverse Kinematics:\n");	
+	for(int i = 0; i < 5; i++) printf("theta%d = %f\n", i, angles[i]);
 
 	// Deallocate the memory
 	free(angles);

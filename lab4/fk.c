@@ -69,7 +69,7 @@ float **build_matrix(float **prms, float **return_matrix, int row)
 	htm[3][2] = 0.0;
 	htm[3][3] = 1.0;
 
-	printf("\n HTM %d wrt %d:\n", row, row+1);
+	printf("\nHTM %d wrt %d:\n", row+1, row);
 	print_matrix(htm);
 	printf("\n");
 
