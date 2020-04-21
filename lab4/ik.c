@@ -25,15 +25,19 @@ float *find_joint_angles123(float **htm, float **prms)
 	float z = htm[2][3] - d5 * htm[2][2] - d1;
 	float num = a*a + z*z - a2*a2 - a3*a3;
 	float den = 2.0 * a2 * a3;
-	theta3 = acos(num/den);
+	float c3 = num/den;
+
+	// Make sure we're not trying to take the arccos of a value > |1|
+	if (c3 > 1) c3 = 1;
+	else if (c3 < -1) c3 = -1;
+	theta3 = acos(c3);
 
 	// Calculate theta 2
 	theta2 = atan2(z, a) + atan2(a3*sin(theta3), a2 + a3*cos(theta3));
 
-	// Convert radians to degrees
-	angles[0] = theta1 * 180 / PI;
-	angles[1] = theta2 * 180 / PI;
-	angles[2] = theta3 * 180 / PI;
+	angles[0] = theta1;
+	angles[1] = theta2;
+	angles[2] = theta3;
 
 	return angles;
 }
@@ -49,8 +53,8 @@ float *find_joint_angles45(float **htm)
 	float theta5 = atan2(htm[2][0], htm[2][1]);
 	
 	// Convert radians to degrees
-	angles[0] = theta4 * 180 / PI;
-	angles[1] = theta5 * 180 / PI;
+	angles[0] = theta4;
+	angles[1] = theta5;
 
 	return angles;
 }

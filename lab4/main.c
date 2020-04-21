@@ -55,19 +55,25 @@ int main(int argc, char *argv[])
 	temp3 = matrix_mult(temp1, temp2);
 	sol = matrix_mult(temp3, T5);
 
-	destroy_matrix(temp2);
-	destroy_matrix(temp3);
-
-	// Lab 3
+	// Output Lab 3 solution
 	printf("\nHTM 5 wrt 0 (0A5):\n");
 	print_matrix(sol);
 	printf("\n");
 
+	// Deallocate temporary arrays and lab 3 arrays we don't need
+	destroy_matrix(temp1);
+	destroy_matrix(temp2);
+	destroy_matrix(temp3);
+	destroy_matrix(T1);
+	destroy_matrix(T2);
+	destroy_matrix(T3);
+	destroy_matrix(T4);
+	destroy_matrix(T5);
+
 	// Lab 4 code
 	angles = find_joint_angles123(sol, prms);
 
-	// deallocate
-	destroy_matrix(temp1);
+	// Calculate the matrix we need to find theta 4/5
 	temp1 = get_3A0(angles, prms);
 	temp1 = get_3A5(temp1, sol);
 
@@ -76,17 +82,14 @@ int main(int argc, char *argv[])
 	angles[3] = ang_temp[0];
 	angles[4] = ang_temp[1];
 
+	// Output lab 4 solution in degrees
 	printf("Lab4 Inverse Kinematics:\n");	
-	for(int i = 0; i < 5; i++) printf("theta%d = %f\n", i, angles[i]);
+	for(int i = 0; i < 5; i++) printf("theta%d = %f\n", i, angles[i]*180/PI);
 
-	// Deallocate the memory
+	// Deallocate remaining arrays
+	free(ang_temp);
 	free(angles);
 	destroy_prm(prms, num_joints);
-	destroy_matrix(T1);
-	destroy_matrix(T2);
-	destroy_matrix(T3);
-	destroy_matrix(T4);
-	destroy_matrix(T5);
 	destroy_matrix(temp1);
 	destroy_matrix(sol);
 
