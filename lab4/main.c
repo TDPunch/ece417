@@ -84,7 +84,7 @@ int main(int argc, char *argv[])
 
 	// Output lab 4 solution in degrees
 	printf("Lab4 Inverse Kinematics:\n");	
-	for(int i = 0; i < 5; i++) printf("theta%d = %f\n", i, angles[i]*180/PI);
+	for(int i = 0; i < 5; i++) printf("theta%d = %f\n", i+1, angles[i]*180/PI);
 
 	// Deallocate remaining arrays
 	free(ang_temp);
